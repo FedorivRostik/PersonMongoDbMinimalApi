@@ -1,5 +1,5 @@
 ﻿namespace PersonMongoDbMinimalApi.Database;
-public class PersonDBSettings : IPersonDBSettings
+public class PersonDbSettings : IPersonDbSettings
 {
     public string PersonCollectionName { get; set; } = string.Empty;
     public string ConnectionString { get; set; } = string.Empty;
