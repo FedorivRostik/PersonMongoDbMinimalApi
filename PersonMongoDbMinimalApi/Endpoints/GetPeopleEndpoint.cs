@@ -6,7 +6,7 @@ using PersonMongoDbMinimalApi.Services;
 
 namespace PersonMongoDbMinimalApi.Endpoints;
 
-[HttpGet("people"), AllowAnonymous]
+[HttpGet("people"),AllowAnonymous]
 public class GetPeopleEndpoint: EndpointWithoutRequest<GetPeopleResponse>
 {
     private readonly IPersonService _personService;
@@ -18,8 +18,10 @@ public class GetPeopleEndpoint: EndpointWithoutRequest<GetPeopleResponse>
 
     public override async Task HandleAsync(CancellationToken ct)
     {
-        var customers = await _personService.GetAllAsync();
-        var customersResponse = customers.ToPeopleResponse();
-        await SendOkAsync(customersResponse, ct);
+        var people = await _personService.GetAllAsync();
+
+        var peopleResponse = people.ToPeopleResponse();
+
+        await SendOkAsync(peopleResponse, ct);
     }
 }
