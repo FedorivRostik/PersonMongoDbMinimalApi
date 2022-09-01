@@ -1,9 +1,10 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.Extensions.Options;
-using MongoDB.Driver.Core.Configuration;
 using PersonMongoDbMinimalApi.Database;
+using PersonMongoDbMinimalApi.Repository;
 using PersonMongoDbMinimalApi.Services;
+using PersonMongoDbMinimalApi.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 var provider = builder.Services.BuildServiceProvider();
@@ -22,10 +23,13 @@ builder.Services.AddSingleton<IPersonDbSettings>(sp =>
 
 builder.Services.AddSingleton<IPersonDbSettings, PersonDbSettings>();
 builder.Services.AddSingleton<IPersonService, PersonService>();
+builder.Services.AddSingleton<IPersonRepository, PersonRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseOpenApi();
+
+app.UseMiddleware<ValidationExceptionMiddleware>();
 app.UseFastEndpoints();
 app.UseSwaggerUi3(s => s.ConfigureDefaults());
 

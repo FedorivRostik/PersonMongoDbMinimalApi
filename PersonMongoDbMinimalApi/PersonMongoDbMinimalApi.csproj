@@ -10,14 +10,10 @@
     <PackageReference Include="FastEndpoints" Version="5.0.0" />
     <PackageReference Include="FastEndpoints.Swagger" Version="5.0.0" />
     <PackageReference Include="FluentValidation" Version="11.2.1" />
+    <PackageReference Include="Google.AdWords" Version="24.19.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.17.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Domain\Common\" />
   </ItemGroup>
 
 </Project>
