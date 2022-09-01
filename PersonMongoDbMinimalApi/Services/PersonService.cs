@@ -1,25 +1,45 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using PersonMongoDbMinimalApi.Database;
-using PersonMongoDbMinimalApi.Domain;
+﻿using PersonMongoDbMinimalApi.Domain;
+using PersonMongoDbMinimalApi.Repository;
 
 namespace PersonMongoDbMinimalApi.Services;
 public class PersonService: IPersonService
 {
-    private readonly IMongoCollection<Person> _people;
+    private readonly IPersonRepository _repository;
 
-    public PersonService(IOptions<PersonDbSettings> settings)
+    public PersonService(IPersonRepository repository)
     {
-        var client = new MongoClient(settings.Value.ConnectionString);
-
-        var database = client.GetDatabase(settings.Value.DatabaseName);
-
-        _people = database.GetCollection<Person>(settings.Value.PersonCollectionName);
+        _repository = repository;
     }
 
     public async Task<List<Person>> GetAllAsync()
     {
-        var people = await _people.FindAsync(emp=>true).Result.ToListAsync();
+      var people= await _repository.GetAllAsync();
+
         return people;
+    } 
+
+    public async Task<Person> GetAsync(string id)
+    {
+        var people = await _repository.GetAsync(id);
+        if (people is null)
+        {
+            throw new Exception();
+        }
+        return people;
+    }
+
+    public async Task DeleteAsync(string id)
+    {
+         await _repository.DeleteAsync(id);
+    }
+
+    public async Task CreateAsync(Person person)
+    {
+        await _repository.CreateAsync(person);
+    }
+
+    public async Task UpdateAsync(Person person)
+    {
+        await _repository.UpdateAsync( person);
     }
 }

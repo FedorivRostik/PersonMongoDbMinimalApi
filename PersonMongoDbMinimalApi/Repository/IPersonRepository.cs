@@ -1,7 +1,7 @@
 ﻿using PersonMongoDbMinimalApi.Domain;
 
-namespace PersonMongoDbMinimalApi.Services;
-public interface IPersonService
+namespace PersonMongoDbMinimalApi.Repository;
+public interface IPersonRepository
 {
     public Task<List<Person>> GetAllAsync();
     public Task<Person> GetAsync(string id);
